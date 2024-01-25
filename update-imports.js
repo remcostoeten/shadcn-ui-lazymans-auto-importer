@@ -27,7 +27,7 @@ if (fs.existsSync('./src')) {
         fs.mkdirSync(chosenComponentsFolder, { recursive: true });
         console.log('./components/ui/ created.');
         processComponents();
-        updateImports(); // This is where you should call the function that updates the imports
+        updateImports();
     } else {
         console.log('Folder not created. Please manually create either ./components/ui/ or ./src/components/ui/ and run the script again.');
         process.exit(1);
@@ -73,16 +73,21 @@ function processComponents() {
     });
   }
 
-  const importStatements = componentFiles.map(file => {
-    const componentName = path.basename(file, '.tsx');
-    const capitalizedComponentName = componentName.charAt(0).toUpperCase() + componentName.slice(1).toLowerCase();
-    return `import { ${capitalizedComponentName} } from './${componentName}';`;
-  });
+const importStatements = componentFiles.map(file => {
+  let componentName = path.basename(file, '.tsx');
+  componentName = componentName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
+  return `import { ${componentName} } from './${componentName}';`;
+});
 
-  const content = `${importStatements.join('\n')}\n${exportStatement}\n`;
+const exportStatement = `export { ${componentFiles.map(file => {
+  let componentName = path.basename(file, '.tsx');
+  componentName = componentName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
+  return componentName;
+}).join(', ')} };`;
 
-  // Write the content to the ui-imports.tsx file
-  fs.writeFileSync(path.join(chosenComponentsFolder, importsFile), content);
+const content = `${importStatements.join('\n')}\n${exportStatement}\n`;
+
+fs.writeFileSync(path.join(chosenComponentsFolder, importsFile), content);
 
   console.log(`Imports updated in ${path.join(chosenComponentsFolder, importsFile)}.`);
   console.log(`Components exportable in ui-imports.tsx: ${componentFiles.join(', ')}`);

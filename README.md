@@ -1,43 +1,27 @@
-# Component Import Script
+# Speed up and clean up your react projects with this shadcn-lazy-importer!
 
-This script automates the process of updating the import statements in your component import/export file (`ui-imports.tsx`) when adding new components to your React project.
+This allows you to type in the root `./add-component.sh *component*` which can be any shadcn. Which then downloads the component to either `components/ui` or `src/components/ui`. Besides that it creates a `ui-imports.tsx` which handles all the imports and exports which means you can go from having a component like such:
+```js
+import { Toast} from "@/components/ui/toast"
+import { johndeezel } from "@/components/ui/johndeezel"
+import { button } from "@/components/ui/button"
+import { input } from "@/components/ui/input"
 
-## Getting Started
+export default function SoDirty() {
+}
+```
+To 
+```
+import { toast, johndeezel, button, input } from "ui-imports"
 
-1. Clone this repository to your local machine:
+export default function SoClean() {
+}
+```
 
-    ```bash
-    git clone https://github.com/your-username/your-repo.git
-    ```
+*insert meme spend 1 day to save 30 sec*
 
-2. Navigate to the project directory:
+## Getting started
 
-    ```bash
-    cd your-repo
-    ```
+Either clone this repo or copy the `update-import.js` and `add-components.sh` to your root dir. Feel free to rename add-components to whatever you feel like. Cool people do something like `echo "alias addshad='./add-components.sh'" | cat - ~/.zshrc > temp && mv temp ~/.zshrc ; && source ~/.zshrc` which allows to type addshad *COMPONENTNAME* only. `.sh` might require you to run `chmod +x ./add-components.sh`.
 
-3. Run the script to add a new component and update the import statements:
-
-    ```bash
-    ./scripts/add-component.sh NewComponent
-    ```
-
-    Replace `NewComponent` with the actual name of the component you want to add.
-
-4. Verify the result:
-
-    - Check the `components/ui/ui-imports.tsx` file to see if the new import statement for the added component is present.
-
-## Customization
-
-- If your component files are located in a different directory, modify the `componentsFolder` variable in `scripts/update-imports.js` accordingly.
-
-- If you need to customize the `npx shadcn-ui@latest add` command, edit the `scripts/add-component.sh` script.
-
-## Troubleshooting
-
-- If the script encounters issues, make sure the necessary directories and files exist. Follow the prompts to create them if needed.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Das it.

@@ -1,19 +1,20 @@
-tLdR
+TLDR
 ```shell
-~/sites/shadcn-ui-lazymans-auto-importer/example-app/ git:(master)
-./add-component.sh button                                                     23:39
+~/sites/shadcn-ui-lazymans-auto-importer/example-app/ git:(master*)
+./add-component.sh navigation-menu                                                                                                    23:42
 ✔ Done.
 Imports updated in src/components/ui/ui-imports.tsx.
-Components exportable in ui-imports.tsx: button.tsx, toast.tsx, toaster.tsx
+Components exportable in ui-imports.tsx: button.tsx, navigation-menu.tsx, toast.tsx, toaster.tsx
 ~/sites/shadcn-ui-lazymans-auto-importer/example-app/ git:(master*)
-cat src/components/ui/ui-imports.tsx                                          23:39
-───────┬────────────────────────────────────────────────────────────────────────────
+cat src/components/ui/ui-imports.tsx                                                                                                  23:42
+───────┬────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
        │ File: src/components/ui/ui-imports.tsx
-───────┼────────────────────────────────────────────────────────────────────────────
+───────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
    1 + │ import { Button } from './button';
-   2   │ import { Toast } from './toast';
-   3   │ import { Toaster } from './toaster';
-───────┴───────────────────────────────────────────────────────────────
+   2 + │ import { Navigation-menu } from './navigation-menu';
+   3   │ import { Toast } from './toast';
+   4   │ import { Toaster } from './toaster';
+   5 ~ │ export { button, navigation-menu, toast, toaster };
 ```
 
 # Speed up and clean up your react projects with this shadcn-lazy-importer!

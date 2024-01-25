@@ -2,6 +2,7 @@
 
 Why you ask? I hate a 💩-load of imports, and always forget the npx shad command.
 
+## far from perfect, far from done, but thats life. It works, somewhat.
 
 This allows you to type in the root `./add-component.sh *component*` which can be any shadcn. Which then downloads the component to either `components/ui` or `src/components/ui`. Besides that it creates a `ui-imports.tsx` which handles all the imports and exports which means you can go from having a component like such:
 ```js
@@ -13,7 +14,7 @@ import { input } from "@/components/ui/input"
 export default function SoDirty() {
 }
 ```
-To 
+To
 ```js
 import { toast, johndeezel, button, input } from "ui-imports"
 

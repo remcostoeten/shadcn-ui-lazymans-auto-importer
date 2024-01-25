@@ -1,5 +1,8 @@
 # Speed up and clean up your react projects with this shadcn-lazy-importer!
 
+I hate a 💩-load of imports, and always forget the npx shad command.
+
+
 This allows you to type in the root `./add-component.sh *component*` which can be any shadcn. Which then downloads the component to either `components/ui` or `src/components/ui`. Besides that it creates a `ui-imports.tsx` which handles all the imports and exports which means you can go from having a component like such:
 ```js
 import { Toast} from "@/components/ui/toast"

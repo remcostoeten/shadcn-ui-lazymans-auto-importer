@@ -1,3 +1,21 @@
+TlDr
+```shell
+~/sites/shadcn-ui-lazymans-auto-importer/example-app/ git:(master)
+./add-component.sh button                                                     23:39
+✔ Done.
+Imports updated in src/components/ui/ui-imports.tsx.
+Components exportable in ui-imports.tsx: button.tsx, toast.tsx, toaster.tsx
+~/sites/shadcn-ui-lazymans-auto-importer/example-app/ git:(master*)
+cat src/components/ui/ui-imports.tsx                                          23:39
+───────┬────────────────────────────────────────────────────────────────────────────
+       │ File: src/components/ui/ui-imports.tsx
+───────┼────────────────────────────────────────────────────────────────────────────
+   1 + │ import { Button } from './button';
+   2   │ import { Toast } from './toast';
+   3   │ import { Toaster } from './toaster';
+───────┴───────────────────────────────────────────────────────────────
+```
+
 # Speed up and clean up your react projects with this shadcn-lazy-importer!
 
 Why you ask? I hate a 💩-load of imports, and always forget the npx shad command.

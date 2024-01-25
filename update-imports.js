@@ -1,37 +1,90 @@
--e const fs = require('fs');
+const fs = require('fs');
 const path = require('path');
+const readline = require('readline');
+const { exec } = require('child_process');
 
 const componentsFolder = './components/ui/';
 const importsFile = 'ui-imports.tsx';
 
-const componentFiles = fs.readdirSync(componentsFolder)
-  .filter(file => file.endsWith('.tsx') && file !== importsFile);
+let chosenComponentsFolder = componentsFolder;
+let exportStatement = ''; // Initialize exportStatement
 
-if (componentFiles.length === 0) {
-  console.error('Error: No component files found. Make sure the ui-imports.tsx file exists.');
-  process.exit(1);
+if (fs.existsSync('./src')) {
+    chosenComponentsFolder = './src/components/ui/';
+    if (!fs.existsSync(chosenComponentsFolder)) {
+        fs.mkdirSync(chosenComponentsFolder, { recursive: true });
+        console.log('./src/components/ui/ created.');
+    }
+    processComponents();
+} else if (!fs.existsSync(chosenComponentsFolder)) {
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+    rl.question('Neither ./components/ui/ nor ./src/components/ui/ exist. Do you want to create ./components/ui/? (y/n) ', (answer) => {
+      if (answer.toLowerCase() === 'y') {
+        fs.mkdirSync(chosenComponentsFolder, { recursive: true });
+        console.log('./components/ui/ created.');
+        processComponents();
+        updateImports(); // This is where you should call the function that updates the imports
+    } else {
+        console.log('Folder not created. Please manually create either ./components/ui/ or ./src/components/ui/ and run the script again.');
+        process.exit(1);
+    }
+        rl.close();
+    });
+} else {
+    processComponents();
 }
 
-// Generate import statements for each component
-const importStatements = componentFiles.map(file => {
-  const componentName = path.basename(file, '.tsx');
-  return `import { ${componentName} } from './${componentName}';`;
-});
+function processComponents() {
+  const componentFiles = fs.readdirSync(chosenComponentsFolder)
+    .filter(file => file.endsWith('.tsx') && file !== importsFile);
 
-// Create the export statement
-const exportStatement = `export {
-  ${componentFiles.map(file => path.basename(file, '.tsx')).join(',
-  ')}
-};`;
+  if (!fs.existsSync('./components.json')) {
+    console.log('Shadcn-ui config file not found, creating one... (rootdir_components.json)');
 
-// Combine import statements and export statement
-const content = `${importStatements.join('
-')}
+    let componentsJson = {
+      "$schema": "https://ui.shadcn.com/schema.json",
+      "style": "default",
+      "tailwind": {
+        "config": "tailwind.config.ts",
+        "css": "app/globals.css",
+        "baseColor": "slate",
+        "cssVariables": true
+      },
+      "rsc": false,
+      "aliases": {
+        "utils": "@/core/lib/utils",
+        "components": "@/components"
+      }
+    };
 
-${exportStatement}
-`;
+    console.log('components.json created. Please make sure the aliases and tailwind extension are correct.');
 
-// Write the content to the ui-imports.tsx file
-fs.writeFileSync(path.join(componentsFolder, importsFile), content);
+    fs.writeFileSync('./components.json', JSON.stringify(componentsJson, null, 2));
+    console.log("Configuration is missing. Make sure shadcn-ui is initialized (components.json)...");
+    exec('npx shadcn-ui@latest init', (error, stdout, stderr) => {
+      if (error) {
+        console.log(`errorrrr: ${error.message}`);
+        return;
+      }
+    });
+  }
 
-console.log('Imports updated successfully.');
+  const importStatements = componentFiles.map(file => {
+    const componentName = path.basename(file, '.tsx');
+    const capitalizedComponentName = componentName.charAt(0).toUpperCase() + componentName.slice(1).toLowerCase();
+    return `import { ${capitalizedComponentName} } from './${componentName}';`;
+  });
+
+  const content = `${importStatements.join('\n')}\n${exportStatement}\n`;
+
+  // Write the content to the ui-imports.tsx file
+  fs.writeFileSync(path.join(chosenComponentsFolder, importsFile), content);
+
+  console.log(`Imports updated in ${path.join(chosenComponentsFolder, importsFile)}.`);
+  console.log(`Components exportable in ui-imports.tsx: ${componentFiles.join(', ')}`);
+  process.exit(0);
+}

@@ -1,4 +1,4 @@
--e # Component Import Script
+# Component Import Script
 
 This script automates the process of updating the import statements in your component import/export file (`ui-imports.tsx`) when adding new components to your React project.
 

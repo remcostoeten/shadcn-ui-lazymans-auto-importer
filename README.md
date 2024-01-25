@@ -25,6 +25,6 @@ export default function SoClean() {
 
 ## Getting started
 
-Either clone this repo or copy the `update-import.js` and `add-components.sh` to your root dir. Feel free to rename add-components to whatever you feel like. Cool people do something like `echo "alias addshad='./add-components.sh'" | cat - ~/.zshrc > temp && mv temp ~/.zshrc ; && source ~/.zshrc` which allows to type addshad *COMPONENTNAME* only. `.sh` might require you to run `chmod +x ./add-components.sh`.
+Either clone this repo or copy the `update-import.js` and `add-components.sh` to your root dir. Feel free to rename add-components to whatever you feel like. Cool people do something like `echo "alias addshad='./add-components.sh'" | cat - ~/.zshrc > temp && mv temp ~/.zshrc ; && source ~/.zshrc` which allows to type `addshad *COMPONENTNAME*` only. `.sh` might require you to run `chmod +x ./add-components.sh`.
 
 Das it.

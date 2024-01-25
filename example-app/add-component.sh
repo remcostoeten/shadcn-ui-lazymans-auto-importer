@@ -3,4 +3,3 @@ npx shadcn-ui@latest add $1
 
 # Run the script to update the ui-imports.tsx file
 node update-imports.js
-js_files=$(find . -type f -name "*.js")

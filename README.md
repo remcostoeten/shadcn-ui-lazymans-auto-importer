@@ -11,7 +11,7 @@ export default function SoDirty() {
 }
 ```
 To 
-```
+```js
 import { toast, johndeezel, button, input } from "ui-imports"
 
 export default function SoClean() {

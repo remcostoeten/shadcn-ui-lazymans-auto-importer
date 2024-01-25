@@ -1,4 +1,4 @@
-TlDr
+tLdR
 ```shell
 ~/sites/shadcn-ui-lazymans-auto-importer/example-app/ git:(master)
 ./add-component.sh button                                                     23:39

@@ -1,27 +1,31 @@
 TLDR
-```bash
-~/sites/shadcn-ui-lazymans-auto-importer/example-app/ git:(master*)
-./add-component.sh toast                                                                                                               0:20
+```bash filename='cli' 
+pwd: ~/sites/shadcn-ui-lazymans-auto-importer/example-app
+
+**./add-component.sh toast**
+
 ✔ Component toast already exists. Would you like to overwrite? … yes
 ✔ Done.
+
 Imports updated in src/components/ui/ui-imports.tsx.
-Components exportable in ui-imports.tsx: navigation-menu.tsx, toast.tsx, toaster.tsx
-~/sites/shadcn-ui-lazymans-auto-importer/example-app/ git:(master*)
-./add-component.sh navigation-menu                                                                                                     0:20
-✔ Component navigation-menu already exists. Would you like to overwrite? … yes
-✔ Done.
-Imports updated in src/components/ui/ui-imports.tsx.
-Components exportable in ui-imports.tsx: navigation-menu.tsx, toast.tsx, toaster.tsx
-~/sites/shadcn-ui-lazymans-auto-importer/example-app/ git:(master*)
-cat src/components/ui/ui-imports.tsx                                                                                                   0:21
-───────┬────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-       │ File: src/components/ui/ui-imports.tsx
-───────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-   1 ~ │ import { NavigationMenu } from './NavigationMenu';
-   2 ~ │ import { Toast } from './Toast';
-   3 ~ │ import { Toaster } from './Toaster';
-   4 ~ │ export { NavigationMenu, Toast, Toaster };
-───────┴─────────────────────────────────────────────────
+
+cat src/components/ui/ui-imports.tsx                                                                                         
+ File: src/components/ui/ui-imports.tsx
+_____________________________________________
+ │ import { NavigationMenu } from './NavigationMenu';
+ │ import { Toast } from './Toast';
+ │ import { Toaster } from './Toaster';
+ │ export { NavigationMenu, Toast, Toaster };
+```
+ 
+Instead of cloning or manually copying, run this in your root.
+```shell
+# Download add-components.sh
+curl -O https://raw.githubusercontent.com/remcostoeten/shadcn-ui-lazymans-auto-importer/master/example-app/add-components.sh
+
+# Download update-imports.js
+curl -O https://raw.githubusercontent.com/remcostoeten/shadcn-ui-lazymans-auto-importer/master/example-app/update-imports.js
+
 ```
 
 # Speed up and clean up your react projects with this shadcn-lazy-importer!
